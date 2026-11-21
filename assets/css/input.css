@@ -15,47 +15,6 @@
   --color-amber-200: #fde68a;
   --color-amber-400: #fbbf24;
   --color-amber-500: #f59e0b;
-  --animate-float: float-slow 18s ease-in-out infinite;
-  --animate-bob: bob 7s ease-in-out infinite;
-  --animate-ring: wa-ring 2.6s ease-out infinite;
-
-  @keyframes float-slow {
-    0%, 100% { transform: translate3d(0, 0, 0); }
-    50% { transform: translate3d(36px, -26px, 0); }
-  }
-
-  @keyframes bob {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
-  }
-
-  @keyframes wa-ring {
-    0% { transform: scale(1); opacity: 0.55; }
-    100% { transform: scale(1.75); opacity: 0; }
-  }
-}
-
-.reveal-ready [data-reveal] {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-  transition-delay: var(--reveal-delay, 0ms);
-}
-
-.reveal-ready [data-reveal].is-visible {
-  opacity: 1;
-  transform: none;
-}
-
-@keyframes fade-down {
-  from { opacity: 0; transform: translateY(-6px); }
-  to { opacity: 1; transform: none; }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  details[open] > p {
-    animation: fade-down 0.3s ease-out;
-  }
 }
 
 @layer base {
@@ -74,18 +33,7 @@
 }
 
 @utility btn {
-  @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500;
-}
-
-@utility card-lift {
-  transition: transform 0.35s ease, border-color 0.35s ease;
-
-  @media (hover: hover) {
-    &:hover {
-      transform: translateY(-4px);
-      border-color: rgb(212 175 55 / 0.45);
-    }
-  }
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500;
 }
 
 @utility btn-primary {

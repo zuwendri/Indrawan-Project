@@ -63,30 +63,6 @@
     tbody.innerHTML = b;
   });
 
-  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var revealEls = $$("[data-reveal]");
-  if (revealEls.length && "IntersectionObserver" in window && !reduceMotion) {
-    revealEls.forEach(function (el) {
-      var parent = el.parentNode;
-      parent.revealCount = (parent.revealCount || 0) + 1;
-      el.style.setProperty("--reveal-delay", ((parent.revealCount - 1) % 4) * 90 + "ms");
-    });
-    document.documentElement.classList.add("reveal-ready");
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (!en.isIntersecting) return;
-        var el = en.target;
-        el.classList.add("is-visible");
-        io.unobserve(el);
-        setTimeout(function () {
-          el.removeAttribute("data-reveal");
-          el.style.removeProperty("--reveal-delay");
-        }, 1100);
-      });
-    }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
-    revealEls.forEach(function (el) { io.observe(el); });
-  }
-
   if (!$("#simulasi")) return;
 
   var els = {
