@@ -1,0 +1,176 @@
+
+(function () {
+  "use strict";
+
+  var C = window.SITE_CONFIG;
+  if (!C) { console.error("SITE_CONFIG tidak ditemukan. Pastikan config.js dimuat sebelum main.js"); return; }
+
+  /* ---------- Helper ---------- */
+  var $ = function (sel, root) { return (root || document).querySelector(sel); };
+  var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
+  var rupiah = function (n) { return "Rp " + Math.round(n).toLocaleString("id-ID"); };
+  var juta = function (n) { return n >= 1e9 ? (n / 1e9) + " miliar" : (n / 1e6).toLocaleString("id-ID") + " juta"; };
+  var waLink = function (text) {
+    return "https://wa.me/" + C.kontak.whatsapp + "?text=" + encodeURIComponent(text || C.pesanWaUmum);
+  };
+
+
+  var binds = {
+    brand: C.brand, marketer: C.marketer, jabatan: C.jabatan, namaBpr: C.namaBpr,
+    telepon: C.kontak.telepon, email: C.kontak.email, alamat: C.kontak.alamat,
+    jamKerja: C.kontak.jamKerja, tahun: String(new Date().getFullYear()),
+  };
+  $$("[data-bind]").forEach(function (el) {
+    var v = binds[el.getAttribute("data-bind")];
+    if (v !== undefined) el.textContent = v;
+  });
+  $$("[data-wa]").forEach(function (el) {
+    el.href = waLink(el.getAttribute("data-wa") || C.pesanWaUmum);
+    el.target = "_blank"; el.rel = "noopener";
+  });
+  $$("[data-tel]").forEach(function (el) { el.href = "tel:" + C.kontak.telepon.replace(/[^\d+]/g, ""); });
+  $$("[data-mail]").forEach(function (el) { el.href = "mailto:" + C.kontak.email; });
+
+  var menuBtn = $("#menu-btn"), menu = $("#mobile-menu");
+  if (menuBtn && menu) {
+    menuBtn.addEventListener("click", function () {
+      var open = menu.classList.toggle("hidden") === false;
+      menuBtn.setAttribute("aria-expanded", String(open));
+    });
+    $$("a", menu).forEach(function (a) {
+      a.addEventListener("click", function () {
+        menu.classList.add("hidden"); menuBtn.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
+
+  if (!$("#simulasi")) return;
+
+  var els = {
+    tabs: $("#sim-tabs"), range: $("#sim-range"), plafond: $("#sim-plafond"),
+    min: $("#sim-min"), max: $("#sim-max"), minus: $("#sim-minus"), plus: $("#sim-plus"),
+    tenor: $("#sim-tenor"), angsuran: $("#sim-angsuran"), total: $("#sim-total"),
+    selisih: $("#sim-selisih"), info: $("#sim-info"), thead: $("#sim-thead"),
+    tbody: $("#sim-tbody"), wa: $("#sim-wa"), tabelNama: $("#sim-tabel-nama"),
+  };
+
+  var state = { produk: "kta", idx: 0, tenorIdx: 0 };
+  var P = function () { return C.produk[state.produk]; };
+  var row = function () { return P().tabel[state.idx]; };
+
+  function renderTabs() {
+    els.tabs.innerHTML = "";
+    Object.keys(C.produk).forEach(function (key) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "tab-btn"; b.textContent = C.produk[key].nama;
+      b.setAttribute("data-key", key); b.setAttribute("role", "tab");
+      b.addEventListener("click", function () { selectProduk(key); });
+      els.tabs.appendChild(b);
+    });
+  }
+
+  function selectProduk(key) {
+    var prevTenor = state.produk ? P().tenor[state.tenorIdx] : null;
+    state.produk = key;
+    var p = P();
+    state.idx = Math.min(Math.floor(p.tabel.length / 3), p.tabel.length - 1);
+    var found = p.tenor.indexOf(prevTenor);
+    state.tenorIdx = found > -1 ? found : Math.floor(p.tenor.length / 2);
+
+    els.range.min = 0; els.range.max = p.tabel.length - 1; els.range.step = 1; els.range.value = state.idx;
+    els.min.textContent = rupiah(p.tabel[0][0]);
+    els.max.textContent = rupiah(p.tabel[p.tabel.length - 1][0]);
+    els.tabelNama.textContent = p.judul;
+
+    $$(".tab-btn", els.tabs).forEach(function (b) {
+      var on = b.getAttribute("data-key") === key;
+      b.classList.toggle("is-active", on); b.setAttribute("aria-selected", String(on));
+    });
+
+    els.info.innerHTML = "";
+    [["Untuk", p.untuk], ["Wilayah", p.wilayah], ["Tenor", p.tenor[0] + " – " + p.tenor[p.tenor.length - 1] + " bulan"]].forEach(function (x) {
+      var li = document.createElement("li");
+      li.innerHTML = '<span class="text-slate-400">' + x[0] + ':</span> <span class="font-semibold text-white">' + x[1] + "</span>";
+      els.info.appendChild(li);
+    });
+
+    renderTenor(); renderTableHead(); update();
+  }
+
+  function renderTenor() {''
+    els.tenor.innerHTML = "";
+    P().tenor.forEach(function (t, i) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "chip"; b.textContent = t + " bulan";
+      b.addEventListener("click", function () { state.tenorIdx = i; update(); });
+      els.tenor.appendChild(b);
+    });
+  }
+
+  function renderTableHead() {
+    var h = '<tr><th class="px-3 py-2 text-left font-semibold">Plafond</th>';
+    P().tenor.forEach(function (t) { h += '<th class="px-3 py-2 text-right font-semibold">' + t + " bln</th>"; });
+    els.thead.innerHTML = h + "</tr>";
+  }
+
+  function renderTableBody() {
+    var p = P(), html = "";
+    p.tabel.forEach(function (r, i) {
+      var sel = i === state.idx;
+      html += '<tr data-i="' + i + '" class="cursor-pointer border-t border-white/5 transition hover:bg-white/10 ' + (sel ? "bg-brand-500/15" : "") + '">';
+      html += '<td class="px-3 py-2 text-left font-semibold ' + (sel ? "text-white" : "text-slate-200") + '">' + rupiah(r[0]) + "</td>";
+      for (var c = 1; c < r.length; c++) {
+        var hit = sel && c - 1 === state.tenorIdx;
+        html += '<td class="px-3 py-2 text-right ' + (hit ? "rounded bg-brand-500 font-bold text-white" : "text-slate-300") + '">' + r[c].toLocaleString("id-ID") + "</td>";
+      }
+      html += "</tr>";
+    });
+    els.tbody.innerHTML = html;
+  }
+
+  function update() {
+    var p = P(), r = row();
+    var plafond = r[0], tenor = p.tenor[state.tenorIdx], angsuran = r[state.tenorIdx + 1];
+    var total = angsuran * tenor;
+
+    els.plafond.textContent = rupiah(plafond);
+    els.angsuran.textContent = rupiah(angsuran);
+    els.total.textContent = rupiah(total);
+    els.selisih.textContent = rupiah(total - plafond);
+    els.range.value = state.idx;
+    els.range.setAttribute("aria-valuetext", rupiah(plafond));
+    els.minus.disabled = state.idx <= 0;
+    els.plus.disabled = state.idx >= p.tabel.length - 1;
+
+    $$(".chip", els.tenor).forEach(function (b, i) {
+      var on = i === state.tenorIdx;
+      b.classList.toggle("is-active", on); b.setAttribute("aria-pressed", String(on));
+    });
+
+    renderTableBody();
+
+    els.wa.href = waLink(
+      "Halo Pak " + C.marketer + ", saya ingin mengajukan " + p.judul +
+      ": plafond " + rupiah(plafond) + ", tenor " + tenor + " bulan, angsuran " +
+      rupiah(angsuran) + "/bulan. Mohon informasi selanjutnya."
+    );
+  }
+
+  els.range.addEventListener("input", function () { state.idx = Number(els.range.value); update(); });
+  els.minus.addEventListener("click", function () { if (state.idx > 0) { state.idx--; update(); } });
+  els.plus.addEventListener("click", function () { if (state.idx < P().tabel.length - 1) { state.idx++; update(); } });
+  els.tbody.addEventListener("click", function (e) {
+    var tr = e.target.closest("tr[data-i]");
+    if (tr) { state.idx = Number(tr.getAttribute("data-i")); update(); }
+  });
+
+  state.produk = null;
+  renderTabs();
+  selectProduk("kta");
+
+  // Info rentang produk untuk teks hero/produk (opsional): <span data-range="kta">
+  $$("[data-range]").forEach(function (el) {
+    var p = C.produk[el.getAttribute("data-range")];
+    if (p) el.textContent = "Rp " + juta(p.tabel[0][0]) + " – Rp " + juta(p.tabel[p.tabel.length - 1][0]);
+  });
+})();
