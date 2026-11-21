@@ -5,9 +5,13 @@ Website statis (HTML + Tailwind CSS). Tidak perlu build/instalasi.
 ## Struktur
 ```
 bpr-website/
-├── index.html              ← teks halaman, SEO, section
+├── index.html              ← halaman utama
+├── kta.html                ← halaman KTA (tabel, syarat, FAQ)
+├── kredit-multiguna.html   ← halaman Kredit Multiguna (tabel, syarat, FAQ)
 ├── assets/js/config.js     ← ★ EDIT DI SINI: kontak & TABEL ANGSURAN
-├── assets/js/main.js       ← logika simulasi (jarang perlu diubah)
+├── assets/js/main.js       ← logika simulasi & render tabel
+├── assets/css/tailwind.css ← hasil kompilasi (jangan diedit manual)
+├── assets/css/input.css    ← sumber gaya Tailwind
 ├── assets/img/             ← logo, favicon, og-image (preview share)
 ├── robots.txt
 └── sitemap.xml
@@ -51,4 +55,9 @@ Upload seluruh folder ke hosting apa pun (cPanel, Netlify, Vercel, GitHub Pages,
 Setelah live, daftarkan ke Google Search Console dan kirim `sitemap.xml`.
 
 ## Catatan Tailwind
-Memakai Tailwind CDN agar mudah diedit tanpa build. Untuk performa maksimal bisa dikompilasi dengan Tailwind CLI nanti.
+CSS dikompilasi ke `assets/css/tailwind.css` (tanpa CDN). Setelah menambah atau mengubah class Tailwind di HTML/JS, jalankan:
+```
+npm install
+npm run build:css
+```
+Tabel angsuran di halaman `kta.html` dan `kredit-multiguna.html` otomatis mengikuti `config.js`. Contoh angka di teks FAQ halaman tersebut dan di `index.html` perlu diubah manual bila tabel berubah.

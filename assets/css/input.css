@@ -1,0 +1,89 @@
+@import "tailwindcss";
+@source "../../*.html";
+@source "../js/*.js";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-brand-400: #e5e7eb;
+  --color-brand-500: #d4af37;
+  --color-brand-600: #b8932a;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-900: #0f172a;
+  --color-amber-200: #fde68a;
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f59e0b;
+}
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@utility glass {
+  @apply bg-white/[0.06] backdrop-blur-xl border border-white/15 shadow-[0_8px_32px_rgba(0,0,0,0.45)];
+}
+
+@utility glass-soft {
+  @apply bg-white/5 backdrop-blur-md border border-white/10;
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500;
+}
+
+@utility btn-primary {
+  @apply btn bg-brand-500 text-black hover:bg-brand-600 shadow-lg shadow-brand-500/20;
+}
+
+@utility btn-ghost {
+  @apply btn glass-soft text-white hover:bg-white/15;
+}
+
+@utility section {
+  @apply mx-auto max-w-6xl px-5 py-16 sm:py-24;
+}
+
+@utility eyebrow {
+  @apply text-xs font-semibold uppercase tracking-[0.2em] text-brand-500;
+}
+
+@utility h2 {
+  @apply mt-2 text-3xl font-extrabold tracking-tight text-white sm:text-4xl;
+}
+
+@utility tab-btn {
+  @apply flex-1 rounded-full px-5 py-2.5 text-sm font-semibold text-slate-300 transition;
+
+  &.is-active {
+    @apply bg-brand-500 text-black shadow-lg shadow-brand-500/20;
+  }
+}
+
+@utility chip {
+  @apply rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium text-slate-200 transition hover:bg-white/15;
+
+  &.is-active {
+    @apply border-brand-500 bg-brand-500/20 text-white;
+  }
+}
+
+@utility step-btn {
+  @apply grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/15 bg-white/5 text-lg font-bold text-white transition hover:bg-white/15 disabled:opacity-30 disabled:hover:bg-white/5;
+}
+
+input[type="range"] {
+  @apply h-2 w-full cursor-pointer appearance-none rounded-full bg-white/15;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  @apply h-6 w-6 appearance-none rounded-full border-4 border-white bg-brand-500 shadow-lg;
+}
+
+input[type="range"]::-moz-range-thumb {
+  @apply h-6 w-6 rounded-full border-4 border-white bg-brand-500;
+}

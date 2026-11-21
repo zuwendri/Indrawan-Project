@@ -1,0 +1,11 @@
+{
+  "name": "indrawan-project",
+  "private": true,
+  "scripts": {
+    "build:css": "tailwindcss -i assets/css/input.css -o assets/css/tailwind.css --minify"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.0",
+    "tailwindcss": "^4.1.0"
+  }
+}

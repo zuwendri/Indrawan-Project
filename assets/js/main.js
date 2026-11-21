@@ -43,6 +43,26 @@
     });
   }
 
+  $$("[data-tabel]").forEach(function (tbl) {
+    var p = C.produk[tbl.getAttribute("data-tabel")];
+    var thead = $("thead", tbl), tbody = $("tbody", tbl);
+    if (!p || !thead || !tbody) return;
+    var h = '<tr><th scope="col" class="px-3 py-2 text-left font-semibold">Plafond</th>';
+    p.tenor.forEach(function (t) {
+      h += '<th scope="col" class="px-3 py-2 text-right font-semibold">' + t + " bulan</th>";
+    });
+    var b = "";
+    p.tabel.forEach(function (r) {
+      b += '<tr class="border-t border-white/5 transition hover:bg-white/10"><th scope="row" class="px-3 py-2 text-left font-semibold text-slate-200">' + rupiah(r[0]) + "</th>";
+      for (var c = 1; c < r.length; c++) {
+        b += '<td class="px-3 py-2 text-right text-slate-300">' + r[c].toLocaleString("id-ID") + "</td>";
+      }
+      b += "</tr>";
+    });
+    thead.innerHTML = h + "</tr>";
+    tbody.innerHTML = b;
+  });
+
   if (!$("#simulasi")) return;
 
   var els = {
