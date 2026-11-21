@@ -17,6 +17,18 @@
   --color-amber-500: #f59e0b;
 }
 
+.reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal-ready [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
 @layer base {
   button:not(:disabled),
   [role="button"]:not(:disabled) {
@@ -24,16 +36,39 @@
   }
 }
 
+@utility glow-amber {
+  background: radial-gradient(closest-side, rgb(251 191 36 / 0.165), rgb(251 191 36 / 0.149) 25%, rgb(251 191 36 / 0.099) 50%, rgb(251 191 36 / 0.059) 65%, rgb(251 191 36 / 0.03) 75%, rgb(251 191 36 / 0.008) 90%, transparent);
+}
+
+@utility glow-slate {
+  background: radial-gradient(closest-side, rgb(148 163 184 / 0.155), rgb(148 163 184 / 0.14) 25%, rgb(148 163 184 / 0.093) 50%, rgb(148 163 184 / 0.056) 65%, rgb(148 163 184 / 0.028) 75%, rgb(148 163 184 / 0.008) 90%, transparent);
+}
+
+@utility glow-pale {
+  background: radial-gradient(closest-side, rgb(253 230 138 / 0.066), rgb(253 230 138 / 0.059) 25%, rgb(253 230 138 / 0.04) 50%, rgb(253 230 138 / 0.024) 65%, rgb(253 230 138 / 0.012) 75%, rgb(253 230 138 / 0.003) 90%, transparent);
+}
+
 @utility glass {
-  @apply bg-white/[0.06] backdrop-blur-xl border border-white/15 shadow-[0_8px_32px_rgba(0,0,0,0.45)];
+  @apply bg-white/[0.07] border border-white/15 shadow-[0_8px_32px_rgba(0,0,0,0.45)];
 }
 
 @utility glass-soft {
-  @apply bg-white/5 backdrop-blur-md border border-white/10;
+  @apply bg-white/5 border border-white/10;
 }
 
 @utility btn {
-  @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500;
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500;
+}
+
+@utility card-lift {
+  transition: transform 0.35s ease, border-color 0.35s ease;
+
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-4px);
+      border-color: rgb(212 175 55 / 0.45);
+    }
+  }
 }
 
 @utility btn-primary {
