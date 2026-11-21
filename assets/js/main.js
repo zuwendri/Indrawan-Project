@@ -5,7 +5,6 @@
   var C = window.SITE_CONFIG;
   if (!C) { console.error("SITE_CONFIG tidak ditemukan. Pastikan config.js dimuat sebelum main.js"); return; }
 
-  /* ---------- Helper ---------- */
   var $ = function (sel, root) { return (root || document).querySelector(sel); };
   var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
   var rupiah = function (n) { return "Rp " + Math.round(n).toLocaleString("id-ID"); };
@@ -168,7 +167,6 @@
   renderTabs();
   selectProduk("kta");
 
-  // Info rentang produk untuk teks hero/produk (opsional): <span data-range="kta">
   $$("[data-range]").forEach(function (el) {
     var p = C.produk[el.getAttribute("data-range")];
     if (p) el.textContent = "Rp " + juta(p.tabel[0][0]) + " – Rp " + juta(p.tabel[p.tabel.length - 1][0]);
