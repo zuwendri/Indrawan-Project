@@ -63,6 +63,46 @@
     tbody.innerHTML = b;
   });
 
+  var themeBtn = $("#theme-btn");
+  if (themeBtn) {
+    var root = document.documentElement, themeMeta = $('meta[name="theme-color"]');
+    var applyTheme = function (light) {
+      if (light) root.setAttribute("data-theme", "light"); else root.removeAttribute("data-theme");
+      themeBtn.setAttribute("aria-pressed", String(light));
+      themeBtn.setAttribute("aria-label", light ? "Ganti ke tampilan gelap" : "Ganti ke tampilan terang");
+      if (themeMeta) themeMeta.setAttribute("content", light ? "#f7f4ec" : "#000000");
+    };
+    applyTheme(root.getAttribute("data-theme") === "light");
+    themeBtn.addEventListener("click", function () {
+      var light = root.getAttribute("data-theme") !== "light";
+      applyTheme(light);
+      try { localStorage.setItem("tema", light ? "terang" : "gelap"); } catch (e) {}
+    });
+  }
+
+  var tList = $("#testimoni-list"), tSec = $("#testimoni");
+  if (tList && tSec && C.testimoni && C.testimoni.length) {
+    C.testimoni.forEach(function (t) {
+      var li = document.createElement("li");
+      li.className = "glass rounded-3xl p-6";
+      var q = document.createElement("blockquote");
+      q.className = "text-slate-200";
+      q.textContent = "\u201C" + t.teks + "\u201D";
+      var n = document.createElement("p");
+      n.className = "mt-4 text-sm font-semibold text-white";
+      n.textContent = t.nama;
+      li.appendChild(q); li.appendChild(n);
+      if (t.keterangan) {
+        var k = document.createElement("p");
+        k.className = "text-[0.8125rem] text-slate-400";
+        k.textContent = t.keterangan;
+        li.appendChild(k);
+      }
+      tList.appendChild(li);
+    });
+    tSec.hidden = false;
+  }
+
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var revealEls = $$("[data-reveal]");
   if (revealEls.length && "IntersectionObserver" in window && !reduceMotion) {
@@ -101,9 +141,15 @@
   var P = function () { return C.produk[state.produk]; };
   var row = function () { return P().tabel[state.idx]; };
 
+  function urutan() {
+    var pref = ["multiguna", "kta"].filter(function (k) { return C.produk[k]; });
+    var rest = Object.keys(C.produk).filter(function (k) { return pref.indexOf(k) < 0; });
+    return pref.concat(rest);
+  }
+
   function renderTabs() {
     els.tabs.innerHTML = "";
-    Object.keys(C.produk).forEach(function (key) {
+    urutan().forEach(function (key) {
       var b = document.createElement("button");
       b.type = "button"; b.className = "tab-btn"; b.textContent = C.produk[key].nama;
       b.setAttribute("data-key", key); b.setAttribute("role", "tab");
@@ -140,7 +186,7 @@
     renderTenor(); renderTableHead(); update();
   }
 
-  function renderTenor() {''
+  function renderTenor() {
     els.tenor.innerHTML = "";
     P().tenor.forEach(function (t, i) {
       var b = document.createElement("button");
@@ -164,7 +210,7 @@
       html += '<td class="px-3 py-2 text-left font-semibold ' + (sel ? "text-white" : "text-slate-200") + '">' + rupiah(r[0]) + "</td>";
       for (var c = 1; c < r.length; c++) {
         var hit = sel && c - 1 === state.tenorIdx;
-        html += '<td class="px-3 py-2 text-right ' + (hit ? "rounded bg-brand-500 font-bold text-white" : "text-slate-300") + '">' + r[c].toLocaleString("id-ID") + "</td>";
+        html += '<td class="px-3 py-2 text-right ' + (hit ? "rounded bg-brand-500 font-bold text-black" : "text-slate-300") + '">' + r[c].toLocaleString("id-ID") + "</td>";
       }
       html += "</tr>";
     });
@@ -209,7 +255,7 @@
 
   state.produk = null;
   renderTabs();
-  selectProduk("kta");
+  selectProduk(urutan()[0]);
 
   $$("[data-range]").forEach(function (el) {
     var p = C.produk[el.getAttribute("data-range")];

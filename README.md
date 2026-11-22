@@ -61,3 +61,14 @@ npm install
 npm run build:css
 ```
 Tabel angsuran di halaman `kta.html` dan `kredit-multiguna.html` otomatis mengikuti `config.js`. Contoh angka di teks FAQ halaman tersebut dan di `index.html` perlu diubah manual bila tabel berubah.
+
+## Testimoni
+Bagian testimoni tersembunyi sampai Anda mengisi `testimoni` di `assets/js/config.js` dengan testimoni asli nasabah (dengan izin mereka), misalnya:
+```
+testimoni: [
+  { nama: "Bapak A.", keterangan: "Pelaku usaha, Tangerang Selatan", teks: "Isi testimoni asli." }
+],
+```
+
+## Tema
+Tampilan awal gelap. Tombol matahari/bulan di menu atas mengganti ke tampilan terang, dan pilihan pengunjung tersimpan di perangkatnya.

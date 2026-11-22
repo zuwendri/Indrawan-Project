@@ -14,6 +14,8 @@ window.SITE_CONFIG = {
   pesanWaUmum: "Halo Pak Indrawan, saya tertarik dengan produk kredit di BPR. Mohon informasinya.",
 
 
+  testimoni: [],
+
   produk: {
     kta: {
       nama: "KTA",

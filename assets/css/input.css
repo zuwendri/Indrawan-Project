@@ -10,11 +10,13 @@
   --color-slate-200: #e2e8f0;
   --color-slate-300: #cbd5e1;
   --color-slate-400: #94a3b8;
-  --color-slate-500: #64748b;
+  --color-slate-500: #8b98ad;
   --color-slate-900: #0f172a;
   --color-amber-200: #fde68a;
   --color-amber-400: #fbbf24;
   --color-amber-500: #f59e0b;
+  --color-page: #000000;
+  --color-accent: #d4af37;
   --animate-ring: wa-ring 2.6s ease-out infinite;
 
   @keyframes wa-ring {
@@ -33,6 +35,55 @@
 .reveal-ready [data-reveal].is-visible {
   opacity: 1;
   transform: none;
+}
+
+:root {
+  --glass-shadow: rgb(0 0 0 / 0.45);
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+  --color-page: #f7f4ec;
+  --color-white: #14213d;
+  --color-slate-200: #1f2a44;
+  --color-slate-300: #34425e;
+  --color-slate-400: #4a5973;
+  --color-slate-500: #5b6a82;
+  --color-accent: #8a6508;
+  --color-amber-200: #b57908;
+  --color-amber-500: #8f5a00;
+  --glass-shadow: rgb(20 33 61 / 0.12);
+}
+
+html[data-theme="light"] .glass {
+  background: rgb(255 255 255 / 0.72);
+}
+
+html[data-theme="light"] .glass-soft {
+  background: rgb(255 255 255 / 0.55);
+}
+
+html[data-theme="light"] .glow-amber,
+html[data-theme="light"] .glow-slate,
+html[data-theme="light"] .glow-pale {
+  opacity: 0.5;
+}
+
+html[data-theme="light"] .logo-img {
+  filter: invert(1);
+  mix-blend-mode: multiply;
+}
+
+.theme-icon-moon {
+  display: none;
+}
+
+html[data-theme="light"] .theme-icon-moon {
+  display: block;
+}
+
+html[data-theme="light"] .theme-icon-sun {
+  display: none;
 }
 
 @layer base {
@@ -55,7 +106,8 @@
 }
 
 @utility glass {
-  @apply bg-white/[0.07] border border-white/15 shadow-[0_8px_32px_rgba(0,0,0,0.45)];
+  @apply bg-white/[0.07] border border-white/15;
+  box-shadow: 0 8px 32px var(--glass-shadow);
 }
 
 @utility glass-soft {
@@ -90,7 +142,7 @@
 }
 
 @utility eyebrow {
-  @apply text-xs font-semibold uppercase tracking-[0.2em] text-brand-500;
+  @apply text-xs font-semibold uppercase tracking-[0.2em] text-accent;
 }
 
 @utility h2 {
