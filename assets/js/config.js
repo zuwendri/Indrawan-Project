@@ -5,10 +5,10 @@ window.SITE_CONFIG = {
   jabatan: "Marketing Kredit BPR",
   namaBpr: "BPR KMC",
   kontak: {
-    whatsapp: "6285921218691",
-    telepon: "0859-2121-8691",
+    whatsapp: "6287780721346",
+    telepon: "0877-8072-1346",
     email: "indrawan.mailcorp@gmail.com",
-    alamat: "Jl. Raya Jkt - Bogor No.55D 7, RT.7/RW.2, Rempoa, Kec. Ciputat Tim., Kota Tangerang Selatan, Banten 15412",
+    alamat: "Jl. Raya Jkt - Bogor No.55D 7, RT.7/RW.2, Rempoa, Kecamatan Ciputat Timur, Kota Tangerang Selatan, Banten 15412",
     jamKerja: "Senin – Sabtu, 08.00 – 17.00 WIB",
   },
   pesanWaUmum: "Halo Pak Indrawan, saya tertarik dengan produk kredit di BPR. Mohon informasinya.",
