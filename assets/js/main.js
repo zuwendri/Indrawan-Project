@@ -132,8 +132,8 @@
   var els = {
     tabs: $("#sim-tabs"), range: $("#sim-range"), plafond: $("#sim-plafond"),
     min: $("#sim-min"), max: $("#sim-max"), minus: $("#sim-minus"), plus: $("#sim-plus"),
-    tenor: $("#sim-tenor"), angsuran: $("#sim-angsuran"), total: $("#sim-total"),
-    selisih: $("#sim-selisih"), info: $("#sim-info"), thead: $("#sim-thead"),
+    tenor: $("#sim-tenor"), angsuran: $("#sim-angsuran"),
+    info: $("#sim-info"), thead: $("#sim-thead"),
     tbody: $("#sim-tbody"), wa: $("#sim-wa"), tabelNama: $("#sim-tabel-nama"),
   };
 
@@ -220,12 +220,9 @@
   function update() {
     var p = P(), r = row();
     var plafond = r[0], tenor = p.tenor[state.tenorIdx], angsuran = r[state.tenorIdx + 1];
-    var total = angsuran * tenor;
 
     els.plafond.textContent = rupiah(plafond);
     els.angsuran.textContent = rupiah(angsuran);
-    els.total.textContent = rupiah(total);
-    els.selisih.textContent = rupiah(total - plafond);
     els.range.value = state.idx;
     els.range.setAttribute("aria-valuetext", rupiah(plafond));
     els.minus.disabled = state.idx <= 0;
