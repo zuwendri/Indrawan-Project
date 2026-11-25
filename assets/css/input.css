@@ -25,6 +25,21 @@
   }
 }
 
+#sim-hasil.flash {
+  animation: hasil-pop 0.4s ease-out;
+}
+
+@keyframes hasil-pop {
+  0% { transform: scale(0.97); box-shadow: 0 0 0 0 rgb(212 175 55 / 0.5); }
+  100% { transform: none; box-shadow: 0 0 0 12px rgb(212 175 55 / 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #sim-hasil.flash {
+    animation: none;
+  }
+}
+
 .reveal-ready [data-reveal] {
   opacity: 0;
   transform: translate3d(0, 16px, 0);
@@ -150,7 +165,7 @@ html[data-theme="light"] .theme-icon-sun {
 }
 
 @utility tab-btn {
-  @apply flex-1 rounded-full px-5 py-2.5 text-sm font-semibold text-slate-300 transition;
+  @apply flex-1 rounded-full px-5 py-2.5 text-sm font-semibold text-slate-300 transition active:scale-95;
 
   &.is-active {
     @apply bg-brand-500 text-black shadow-lg shadow-brand-500/20;
@@ -158,15 +173,25 @@ html[data-theme="light"] .theme-icon-sun {
 }
 
 @utility chip {
-  @apply rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium text-slate-200 transition hover:bg-white/15;
+  @apply rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium text-slate-200 transition active:scale-95;
+
+  @media (hover: hover) {
+    &:not(.is-active):hover {
+      @apply bg-white/15;
+    }
+  }
 
   &.is-active {
-    @apply border-brand-500 bg-brand-500/20 text-white;
+    @apply border-brand-500 bg-brand-500 font-bold text-black shadow-lg shadow-brand-500/30;
+
+    &::before {
+      content: "\2713\00a0";
+    }
   }
 }
 
 @utility step-btn {
-  @apply grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/15 bg-white/5 text-lg font-bold text-white transition hover:bg-white/15 disabled:opacity-30 disabled:hover:bg-white/5;
+  @apply active:scale-90 grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/15 bg-white/5 text-lg font-bold text-white transition hover:bg-white/15 disabled:opacity-30 disabled:hover:bg-white/5;
 }
 
 input[type="range"] {

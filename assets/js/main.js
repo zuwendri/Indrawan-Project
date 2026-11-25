@@ -132,7 +132,7 @@
   var els = {
     tabs: $("#sim-tabs"), range: $("#sim-range"), plafond: $("#sim-plafond"),
     min: $("#sim-min"), max: $("#sim-max"), minus: $("#sim-minus"), plus: $("#sim-plus"),
-    tenor: $("#sim-tenor"), angsuran: $("#sim-angsuran"),
+    tenor: $("#sim-tenor"), angsuran: $("#sim-angsuran"), tenorAktif: $("#sim-tenor-aktif"), tenorHasil: $("#sim-tenor-hasil"), hasil: $("#sim-hasil"),
     info: $("#sim-info"), thead: $("#sim-thead"),
     tbody: $("#sim-tbody"), wa: $("#sim-wa"), tabelNama: $("#sim-tabel-nama"),
   };
@@ -223,6 +223,9 @@
 
     els.plafond.textContent = rupiah(plafond);
     els.angsuran.textContent = rupiah(angsuran);
+    els.tenorAktif.textContent = tenor + " bulan";
+    els.tenorHasil.textContent = tenor + " bulan";
+    els.hasil.classList.remove("flash"); void els.hasil.offsetWidth; els.hasil.classList.add("flash");
     els.range.value = state.idx;
     els.range.setAttribute("aria-valuetext", rupiah(plafond));
     els.minus.disabled = state.idx <= 0;

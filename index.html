@@ -302,12 +302,14 @@
       <div class="glass mt-10 grid gap-8 rounded-3xl p-5 sm:p-8 lg:grid-cols-2" data-reveal>
         
         <div>
-          <p class="mb-2 text-sm font-semibold text-white"><span class="mr-2 text-accent">1</span>Pilih produk</p>
+          <p class="text-sm font-semibold text-white"><span class="mr-2 text-accent">1</span>Pilih produk</p>
+          <p class="mb-2 mt-1 text-[0.8125rem] text-slate-400">Tekan Multiguna atau KTA. Produk yang menyala emas adalah yang Anda pilih.</p>
           <div id="sim-tabs" role="tablist" aria-label="Pilih produk" class="glass-soft flex gap-1 rounded-full p-1"></div>
           <ul id="sim-info" class="mt-4 space-y-1 text-sm"></ul>
 
           <div class="mt-8">
             <p class="text-sm font-semibold text-white"><span class="mr-2 text-accent">2</span>Pilih plafond pinjaman</p>
+            <p class="mt-1 text-[0.8125rem] text-slate-400">Geser bulatan emas, atau tekan tombol + dan −.</p>
             <output id="sim-plafond" for="sim-range" class="mt-2 block text-3xl font-extrabold text-white">Rp 0</output>
             <div class="mt-4 flex items-center gap-3">
               <button id="sim-minus" type="button" class="step-btn" aria-label="Kurangi plafond">−</button>
@@ -319,16 +321,18 @@
 
           <div class="mt-8">
             <p class="text-sm font-semibold text-white"><span class="mr-2 text-accent">3</span>Pilih jangka waktu (tenor)</p>
+            <p class="mt-1 text-[0.8125rem] text-slate-400">Tekan salah satu. Tenor terpilih: <strong id="sim-tenor-aktif" class="text-accent">-</strong></p>
             <div id="sim-tenor" class="mt-3 flex flex-wrap gap-2" role="group" aria-label="Pilih tenor"></div>
           </div>
         </div>
 
         <div class="flex flex-col gap-4">
-          <div class="rounded-2xl border border-brand-500/40 bg-brand-500/10 p-6 text-center" aria-live="polite">
-            <p class="text-sm text-slate-300">Angsuran per bulan</p>
+          <div id="sim-hasil" class="rounded-2xl border border-brand-500/40 bg-brand-500/10 p-6 text-center" aria-live="polite">
+            <p class="text-sm text-slate-300">Angsuran per bulan untuk tenor <strong id="sim-tenor-hasil" class="whitespace-nowrap text-white">-</strong></p>
             <p id="sim-angsuran" class="mt-1 text-4xl font-extrabold text-white sm:text-5xl">Rp 0</p>
           </div>
 
+          <p class="text-center text-[0.8125rem] text-slate-400">Sudah cocok? Tekan tombol di bawah, pilihan Anda terkirim otomatis lewat WhatsApp.</p>
           <a id="sim-wa" href="#" class="btn-primary w-full" target="_blank" rel="noopener">Ajukan via WhatsApp</a>
           <p class="text-[0.8125rem] leading-relaxed text-slate-400">Simulasi bersifat estimasi angsuran per bulan. Persetujuan dan ketentuan final mengikuti hasil analisis kredit BPR.</p>
           <p class="text-sm text-slate-300">Selain angsuran, ada biaya-biaya lain, sehingga dana yang Anda terima dapat berbeda dari plafond yang dipilih. <a href="#" data-wa="Halo Pak Indrawan, saya ingin tahu rincian biaya dan perkiraan dana yang diterima untuk pinjaman yang saya simulasikan." class="font-semibold text-accent underline underline-offset-4">Tanya rincian dan perkiraan dana yang diterima</a>.</p>
