@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.domainanda.co.id/sitemap.xml
+Sitemap: https://indra-wan.com/sitemap.xml

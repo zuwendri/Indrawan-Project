@@ -41,7 +41,7 @@ Nomor WhatsApp format `6281234567890` (tanpa +, spasi, atau 0 di depan).
 - Bila FAQ diubah, ubah juga blok JSON-LD `FAQPage` di `<head>`.
 
 ## Sebelum online (wajib)
-1. Ganti `domainanda.co.id` di `index.html`, `robots.txt`, `sitemap.xml` dengan domain asli.
+1. Domain `https://indra-wan.com` sudah terpasang di `index.html`, `kta.html`, `kredit-multiguna.html`, `robots.txt`, dan `sitemap.xml`. Bila domain berganti, ganti di kelima file itu.
 2. Isi `namaBpr`, WhatsApp, telepon, email di `config.js`.
 3. Lengkapi persyaratan Multiguna di `index.html` (section `#persyaratan`).
 4. Cek ulang angka tabel (lihat catatan di bawah).
