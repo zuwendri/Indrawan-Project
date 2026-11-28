@@ -1,0 +1,7 @@
+<IfModule mod_headers.c>
+Header set Link "</llms.txt>; rel=\"describedby\"; type=\"text/plain\""
+</IfModule>
+
+<FilesMatch "^(README\.md|package\.json|\.gitignore|\.nojekyll)$">
+Require all denied
+</FilesMatch>

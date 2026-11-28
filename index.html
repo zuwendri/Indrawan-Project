@@ -37,17 +37,134 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "FinancialService",
+    "@type": [
+      "FinancialService",
+      "LocalBusiness"
+    ],
+    "@id": "https://indra-wan.com/#bisnis",
     "name": "Indrawan – Marketing Kredit BPR",
     "url": "https://indra-wan.com/",
     "logo": "https://indra-wan.com/assets/img/logo-indrawan.png",
     "image": "https://indra-wan.com/assets/img/og-image.jpg",
     "description": "KTA tanpa agunan untuk UMKM Jakarta Pusat & sekitarnya dan Kredit Multiguna jaminan SHM se-Jabodetabek.",
-    "areaServed": ["Jakarta Pusat", "Jabodetabek"],
-    "address": { "@type": "PostalAddress", "addressLocality": "Tangerang Selatan", "addressCountry": "ID" },
-    "telephone": "+6287780721346"
+    "areaServed": [
+      "Jakarta Pusat",
+      "Jabodetabek"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Jl. Raya Jkt - Bogor No.55D 7, RT.7/RW.2, Rempoa",
+      "addressLocality": "Tangerang Selatan",
+      "addressRegion": "Banten",
+      "postalCode": "15412",
+      "addressCountry": "ID"
+    },
+    "telephone": "+6287780721346",
+    "email": "indrawan.mailcorp@gmail.com",
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "opens": "08:00",
+      "closes": "17:00"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "telephone": "+6287780721346",
+      "email": "indrawan.mailcorp@gmail.com",
+      "availableLanguage": "id",
+      "areaServed": "ID"
+    }
   }
-  
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://indra-wan.com/#situs",
+        "name": "Indrawan",
+        "url": "https://indra-wan.com/",
+        "inLanguage": "id-ID",
+        "publisher": {
+          "@id": "https://indra-wan.com/#bisnis"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://indra-wan.com/#indrawan",
+        "name": "Indrawan",
+        "jobTitle": "Marketing Kredit BPR",
+        "url": "https://indra-wan.com/",
+        "telephone": "+6287780721346",
+        "email": "indrawan.mailcorp@gmail.com",
+        "knowsAbout": [
+          "Kredit Multiguna jaminan SHM",
+          "KTA tanpa agunan UMKM"
+        ]
+      },
+      {
+        "@type": "LoanOrCredit",
+        "name": "Kredit Multiguna Jaminan SHM",
+        "description": "Kredit dengan jaminan sertifikat rumah (SHM) untuk pengusaha dan karyawan se-Jabodetabek, plafond Rp 25 juta hingga Rp 500 juta.",
+        "url": "https://indra-wan.com/kredit-multiguna.html",
+        "provider": {
+          "@id": "https://indra-wan.com/#bisnis"
+        },
+        "areaServed": [
+          "Jabodetabek"
+        ],
+        "currency": "IDR",
+        "amount": {
+          "@type": "MonetaryAmount",
+          "currency": "IDR",
+          "minValue": 25000000,
+          "maxValue": 500000000
+        },
+        "loanTerm": {
+          "@type": "QuantitativeValue",
+          "minValue": 12,
+          "maxValue": 60,
+          "unitCode": "MON"
+        },
+        "requiredCollateral": "Sertifikat Hak Milik (SHM) rumah"
+      },
+      {
+        "@type": "LoanOrCredit",
+        "name": "KTA Kredit Tanpa Agunan UMKM",
+        "description": "Kredit tanpa agunan untuk pelaku UMKM di Jakarta Pusat dan sekitarnya, plafond Rp 3 juta hingga Rp 10 juta.",
+        "url": "https://indra-wan.com/kta.html",
+        "provider": {
+          "@id": "https://indra-wan.com/#bisnis"
+        },
+        "areaServed": [
+          "Jakarta Pusat"
+        ],
+        "currency": "IDR",
+        "amount": {
+          "@type": "MonetaryAmount",
+          "currency": "IDR",
+          "minValue": 3000000,
+          "maxValue": 10000000
+        },
+        "loanTerm": {
+          "@type": "QuantitativeValue",
+          "minValue": 6,
+          "maxValue": 12,
+          "unitCode": "MON"
+        },
+        "requiredCollateral": "Tanpa agunan"
+      }
+    ]
+  }
   </script>
   <script type="application/ld+json">
   {
@@ -489,9 +606,12 @@
   </main>
 
   <footer class="mx-auto max-w-6xl px-5 pb-24 text-center text-[0.8125rem] leading-relaxed text-slate-500">
-    <nav class="mb-3 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-sm text-slate-400" aria-label="Halaman produk">
+    <nav class="mb-3 flex flex-wrap items-center justify-center gap-x-5 gap-y-1 text-sm text-slate-400" aria-label="Halaman situs">
       <a class="transition hover:text-white" href="kta.html">KTA Kredit Tanpa Agunan UMKM</a>
       <a class="transition hover:text-white" href="kredit-multiguna.html">Kredit Multiguna Jaminan SHM</a>
+      <a class="transition hover:text-white" href="#tentang">Tentang Saya</a>
+      <a class="transition hover:text-white" href="#kontak">Kontak</a>
+      <a class="transition hover:text-white" href="ketentuan.html">Ketentuan &amp; Privasi</a>
     </nav>
     <p>© <span data-bind="tahun"></span> <span data-bind="brand">Indrawan</span>. Hak cipta dilindungi.</p>
     <p class="mt-2"><span data-bind="namaBpr">BPR</span> terdaftar dan diawasi oleh Otoritas Jasa Keuangan (OJK) serta dijamin oleh LPS. Simulasi bersifat estimasi dan bukan penawaran mengikat.</p>
