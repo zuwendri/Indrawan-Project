@@ -20,7 +20,6 @@ window.SITE_CONFIG = {
     kta: {
       nama: "KTA",
       judul: "KTA (Kredit Tanpa Agunan)",
-      wilayah: "Jakarta Pusat & sekitarnya",
       untuk: "Pelaku UMKM",
       tenor: [6, 9, 12],
       tabel: [

@@ -133,7 +133,7 @@
     tabs: $("#sim-tabs"), range: $("#sim-range"), plafond: $("#sim-plafond"),
     min: $("#sim-min"), max: $("#sim-max"), minus: $("#sim-minus"), plus: $("#sim-plus"),
     tenor: $("#sim-tenor"), angsuran: $("#sim-angsuran"), tenorAktif: $("#sim-tenor-aktif"), tenorHasil: $("#sim-tenor-hasil"), hasil: $("#sim-hasil"),
-    info: $("#sim-info"), thead: $("#sim-thead"),
+    info: $("#sim-info"), ktaNote: $("#sim-kta-note"), thead: $("#sim-thead"),
     tbody: $("#sim-tbody"), wa: $("#sim-wa"), tabelNama: $("#sim-tabel-nama"),
   };
 
@@ -161,6 +161,7 @@
   function selectProduk(key) {
     var prevTenor = state.produk ? P().tenor[state.tenorIdx] : null;
     state.produk = key;
+    els.ktaNote.hidden = key !== "kta";
     var p = P();
     state.idx = Math.min(Math.floor(p.tabel.length / 3), p.tabel.length - 1);
     var found = p.tenor.indexOf(prevTenor);
@@ -177,7 +178,7 @@
     });
 
     els.info.innerHTML = "";
-    [["Untuk", p.untuk], ["Wilayah", p.wilayah], ["Tenor", p.tenor[0] + " – " + p.tenor[p.tenor.length - 1] + " bulan"]].forEach(function (x) {
+    [["Untuk", p.untuk], ["Wilayah", p.wilayah], ["Tenor", p.tenor[0] + " – " + p.tenor[p.tenor.length - 1] + " bulan"]].filter(function (x) { return x[1]; }).forEach(function (x) {
       var li = document.createElement("li");
       li.innerHTML = '<span class="text-slate-400">' + x[0] + ':</span> <span class="font-semibold text-white">' + x[1] + "</span>";
       els.info.appendChild(li);
